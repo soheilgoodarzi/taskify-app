@@ -18,13 +18,13 @@ export default function AddTask() {
   }
 
   return (
-    <div className="flex gap-2 mb-4">
+    <div className="flex gap-2 mb-4 bg-black/20 backdrop-blur-lg rounded-xl p-4 shadow-lg border-none">
       <input
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="Add New Task..."
-        className="flex-1 p-2 border rounded-full lg:pl-4 placeholder:text-gray-400 outline-none hover:shadow-lg shadow-gray-300"
+        className="flex-1 p-2 border rounded-full lg:pl-4 placeholder:text-milky outline-none"
       />
       <button
         onClick={handleAddTask}

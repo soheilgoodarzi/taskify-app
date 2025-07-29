@@ -1,16 +1,16 @@
-import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
-import { useDroppable } from "@dnd-kit/core"
-import TaskCard from "./TaskCard"
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { useDroppable } from "@dnd-kit/core";
+import TaskCard from "./TaskCard";
 
-export default function Column({ id, title, tasks, style }) {
-  //convert the column to a droppable area
-  const { setNodeRef } = useDroppable({ id })
+// پراپ className را اضافه می‌کنیم
+export default function Column({ id, title, tasks, className }) {
+  const { setNodeRef } = useDroppable({ id });
 
   return (
-    <div ref={setNodeRef} className={`${style} p-4 rounded-lg`}>
-      <div className="flex flex-row gap-1 mb-4 justify-center text-xl font-semibold">
-        <h2 className="text-milky">{title}</h2>
-        <span className="text-milky">({tasks.length})</span>
+    <div ref={setNodeRef} className={className}> {/* از className استفاده می‌کنیم */}
+      <div className="flex flex-row gap-2 mb-4 justify-center text-xl font-semibold text-white">
+        <h2>{title}</h2>
+        <span>({tasks.length})</span>
       </div>
       <SortableContext
         id={id}
@@ -24,5 +24,5 @@ export default function Column({ id, title, tasks, style }) {
         </div>
       </SortableContext>
     </div>
-  )
+  );
 }

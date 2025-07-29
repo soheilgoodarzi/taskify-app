@@ -1,13 +1,15 @@
-import { useState, useContext } from "react"
-import { TasksDispatchContext } from "../contexts/TasksContext"
-import { Pencil, Trash2 } from "lucide-react"
-import { useSortable } from "@dnd-kit/sortable"
-import { CSS } from "@dnd-kit/utilities"
+import { useState, useContext } from "react";
+import { TasksDispatchContext } from "../contexts/TasksContext";
+import { Pencil, Trash2, GripVertical,Save  } from 'lucide-react';
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 export default function TaskCard({ task }) {
-  const dispatch = useContext(TasksDispatchContext)
-  const [isEditing, setIsEditing] = useState(false)
-  const [editText, setEditText] = useState(task.text)
+  if (!task) return null;
+
+  const dispatch = useContext(TasksDispatchContext);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editText, setEditText] = useState(task.text);
 
   const {
     attributes,
@@ -15,33 +17,26 @@ export default function TaskCard({ task }) {
     setNodeRef,
     transform,
     transition,
-    //this property says whether the card is being dragged or not
     isDragging,
-  } = useSortable({ id: task.id })
+  } = useSortable({ id: task.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : 1,
-    border: isDragging ? "2px dashed #3498db" : undefined,
-  }
+  };
 
   const handleSaveClick = () => {
     dispatch({
       type: "changed",
       payload: { task: { ...task, text: editText } },
-    })
-    setIsEditing(false)
-  }
+    });
+    setIsEditing(false);
+  };
 
   if (isDragging) {
     return (
-      <div
-        ref={setNodeRef}
-        style={style}
-        className="bg-gray-300 p-4 rounded-lg shadow-sm h-[72px]"
-      ></div>
-    )
+      <div ref={setNodeRef} style={style} className="bg-slate-500/50 p-4 rounded-xl h-[58px] border border-slate-400"></div>
+    );
   }
 
   return (
@@ -49,9 +44,12 @@ export default function TaskCard({ task }) {
       ref={setNodeRef}
       style={style}
       {...attributes}
-      {...listeners}
-      className="bg-pencil-tip-100 p-4 rounded-lg shadow-sm flex justify-between items-center"
+      className="bg-white/20 backdrop-blur-lg p-3 rounded-xl shadow-md flex items-center group transition-all hover:shadow-lg text-milky"
     >
+      <button {...listeners} className="text-milky cursor-grab touch-none mr-2">
+        <GripVertical className="w-5 h-5" />
+      </button>
+
       <div className="flex-grow flex items-center">
         {isEditing ? (
           <>
@@ -59,38 +57,40 @@ export default function TaskCard({ task }) {
               type="text"
               value={editText}
               onChange={(e) => setEditText(e.target.value)}
-              className="flex-grow p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-sheen-100"
+              className="flex-grow p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-milky bg-white/50"
             />
             <button
               onClick={handleSaveClick}
-              className="bg-green-500 text-white px-3 py-1 rounded-md ml-2 hover:bg-green-600"
+              className="bg-green-500 text-white px-3 py-1 rounded-md ml-2 hover:bg-green-600 hover:cursor-pointer "
             >
-              ذخیره
+              <Save className="w-5 h-5" />
             </button>
           </>
         ) : (
           <>
-            <p className="flex-grow">{task.text}</p>
+            <p className={`flex-grow ${task.done ? "line-through text-gray-500" : ""}`}>
+              {task.text}
+            </p>
             <button
               onClick={() => setIsEditing(true)}
-              className="text-blue-500 hover:text-blue-700 ml-2"
+              className="text-milky hover:text-yellow-300 ml-2 invisible group-hover:visible transition-opacity hover:cursor-pointer"
             >
-              <Pencil className="w-4 h-4 cursor-pointer" />
+              <Pencil className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => {
+                dispatch({
+                  type: "deleted",
+                  payload: { taskId: task.id },
+                });
+              }}
+              className="text-milky hover:text-red-600 ml-2 invisible group-hover:visible transition-opacity hover:cursor-pointer"
+            >
+              <Trash2 className="w-4 h-4" />
             </button>
           </>
         )}
       </div>
-      <button
-        onClick={() => {
-          dispatch({
-            type: "deleted",
-            payload: { taskId: task.id },
-          })
-        }}
-        className="text-red-500 hover:text-red-700 ml-4 flex-shrink-0"
-      >
-        <Trash2 className="w-4 h-4 cursor-pointer" />
-      </button>
     </div>
-  )
+  );
 }
