@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import { useReducer, useEffect } from "react"
 import { TasksContext, TasksDispatchContext } from "./TasksContext.js"
 import { initialTasks, initialNextId } from "../data/initialData.js"
 
@@ -10,6 +10,14 @@ function arrayMove(arr, fromIndex, toIndex) {
 }
 
 let nextId = initialNextId
+
+function tasksInitializer() {
+  const savedTasks = localStorage.getItem("tasks")
+  if (savedTasks) {
+    return JSON.parse(savedTasks)
+  }
+  return initialTasks
+}
 
 function tasksReducer(tasks, action) {
   switch (action.type) {
@@ -35,61 +43,44 @@ function tasksReducer(tasks, action) {
     case "moved": {
       const { active, over } = action.payload
       if (!over) return tasks
-
       const activeId = active.id
       const overId = over.id
-
+      if (activeId === overId) return tasks
       //  find active task
       const activeTask = tasks.find((t) => t.id === activeId)
       if (!activeTask) return tasks
-
       // find source and destination columns
-      const sourceColumn = activeTask.status
       const overContainer = over.data.current?.sortable?.containerId || over.id
-      const destinationColumn = tasks.some((t) => t.id === overId)
-        ? tasks.find((t) => t.id === overId).status
-        : overContainer
+      const activeContainer =
+        active.data.current?.sortable?.containerId || activeTask.status
 
-      // if moved within the same column
-      if (sourceColumn === destinationColumn) {
-        if (activeId === overId) return tasks
-        // if dropped on itself
-        const oldIndex = tasks.findIndex((t) => t.id === activeId)
-        const newIndex = tasks.findIndex((t) => t.id === overId)
-        if (oldIndex === -1 || newIndex === -1) return tasks
-        return arrayMove(tasks, oldIndex, newIndex)
-      }
-      // if moved to a different column
-      else {
-        // 1. Change the task's status to the new column
-        const updatedTask = { ...activeTask, status: destinationColumn }
-
-        // 2. Replace the updated task in the array
-        const newTasks = tasks.map((t) => (t.id === activeId ? updatedTask : t))
-
-        // 3. Preserve the order of tasks in the overall list (optional but better for UX)
-        const oldIndex = tasks.findIndex((t) => t.id === activeId)
-        const newIndex = tasks.findIndex((t) => t.id === overId)
-
-        if (oldIndex !== -1 && newIndex !== -1) {
-          return arrayMove(
-            tasks.map((t) => (t.id === activeId ? updatedTask : t)),
-            oldIndex,
-            newIndex
-          )
-        }
-
-        return newTasks
+      if (activeContainer === overContainer) {
+        const overIndex = tasks.findIndex((t) => t.id === overId)
+        if (overIndex === -1) return tasks
+        const activeIndex = tasks.findIndex((t) => t.id === activeId)
+        return arrayMove(tasks, activeIndex, overIndex)
+      } else {
+        const activeIndex = tasks.findIndex((t) => t.id === activeId)
+        tasks[activeIndex].status = overContainer
+        return [...tasks]
       }
     }
     default: {
-      throw new Error("Unknown action: " + action.type)
+      throw new Error(`Unknown action: ${action.type}`)
     }
   }
 }
 
 export function TasksProvider({ children }) {
-  const [tasks, dispatch] = useReducer(tasksReducer, initialTasks)
+  const [tasks, dispatch] = useReducer(
+    tasksReducer,
+    initialTasks,
+    tasksInitializer
+  )
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks))
+  }, [tasks])
+
   return (
     <TasksContext.Provider value={tasks}>
       <TasksDispatchContext.Provider value={dispatch}>
