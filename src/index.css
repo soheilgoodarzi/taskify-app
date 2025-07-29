@@ -1,13 +1,11 @@
 @import "tailwindcss";
 @theme {
-  --color-pencil-tip-100: #31363F;
+  --color-pencil-tip-100: #31363f;
   --color-pencil-tip-200: #222831;
   --color-pencil-tip-300: #4e545c;
-  --color-milky: #F9F8F0;
-  --color-green-sheen-100: #76ABAE;
-  --color-green-sheen-200: #4DB6AC;
+  --color-milky: #f9f8f0;
+
 }
-body{
-  background-color: var(--color-pencil-tip-100);
+body {
   color: var(--color-milky);
 }
