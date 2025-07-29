@@ -2,15 +2,16 @@ import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { useDroppable } from "@dnd-kit/core";
 import TaskCard from "./TaskCard";
 
-// پراپ className را اضافه می‌کنیم
 export default function Column({ id, title, tasks, className }) {
   const { setNodeRef } = useDroppable({ id });
 
   return (
-    <div ref={setNodeRef} className={className}> {/* از className استفاده می‌کنیم */}
-      <div className="flex flex-row gap-2 mb-4 justify-center text-xl font-semibold text-white">
-        <h2>{title}</h2>
-        <span>({tasks.length})</span>
+    // ۲. افزایش پدینگ داخلی از p-4 به p-6
+    <div ref={setNodeRef} className={`${className} p-6`}>
+      <div className="flex flex-row gap-2 mb-4 justify-center text-xl text-white">
+        {/* ۳. برجسته‌تر کردن عنوان و اضافه کردن سایه */}
+        <h2 className="font-bold drop-shadow-md">{title}</h2>
+        <span className="drop-shadow-md">({tasks.length})</span>
       </div>
       <SortableContext
         id={id}

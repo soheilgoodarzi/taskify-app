@@ -42,18 +42,19 @@ export default function DashboardPage() {
       ></div>
       <div className="relative z-10 p-8">
         <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
-          <h1 className="text-4xl font-stretch-200%  mb-4 text-milky text-center ">
+          <h1 className="text-4xl font-bold mb-4 text-milky text-center drop-shadow-md">
             Taskify Dashboard
           </h1>
           <AddTask />
-          <div className="grid grid-cols-3 gap-8 mt-4">
+          {/* ۱. افزایش فاصله بین نوار افزودن و ستون‌ها */}
+          <div className="grid grid-cols-3 gap-8 mt-8">
             {Object.entries(columnsData).map(([columnId, columnData]) => (
               <Column
                 key={columnId}
                 id={columnId}
                 title={columnData.title}
                 tasks={columnData.tasks}
-                className="bg-black/20 backdrop-blur-lg rounded-xl p-4 border border-white/20 shadow-lg"
+                className="bg-black/20 backdrop-blur-lg rounded-xl shadow-lg border border-white/20"
               />
             ))}
           </div>
