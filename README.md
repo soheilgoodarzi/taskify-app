@@ -1,12 +1,59 @@
-# React + Vite
+# Taskify - A Modern Project Management Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Taskify is a feature-rich, drag-and-drop project management board inspired by Trello. It allows users to create, edit, delete, and move tasks between columns, with all changes saved persistently in the browser's `localStorage`.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### **[🚀 View Live Demo](https://taskify-app-five.vercel.app)**
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+![Taskify Project Screenshot]<img width="1918" height="900" alt="Screenshot 2025-07-29 233809" src="https://github.com/user-attachments/assets/c8b94716-a49a-4d57-a979-5b6e9d03e30a" />
+
+
+---
+
+## ✨ Features
+
+- **Full CRUD Functionality:** Create, update, and delete tasks.
+- **Drag & Drop:** Smoothly reorder tasks within and between columns using **Dnd Kit**.
+- **State Persistence:** All tasks and their positions are saved to `localStorage`.
+- **Client-Side Routing:** A separate landing page and dashboard managed by **React Router v6**.
+- **Modern UI/UX:** A beautiful, responsive interface with a "glassmorphism" theme, built with **Tailwind CSS**.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework/Library:** React.js, Vite
+- **Styling:** Tailwind CSS
+- **State Management:** React Hooks (`useReducer` + `useContext`)
+- **Routing:** React Router v6
+- **Drag & Drop:** Dnd Kit
+- **Icons:** Lucide React
+
+---
+
+## 🚀 Getting Started
+
+To run this project locally, follow these steps:
+
+1.  **Clone the repository:**
+    ```bash
+    git clone github.com/soheilgoodarzi/taskify-app.git
+    ```
+
+2.  **Navigate to the project directory:**
+    ```bash
+    cd taskify-app
+    ```
+
+3.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+4.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
