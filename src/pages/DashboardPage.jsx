@@ -52,7 +52,7 @@ export default function DashboardPage() {
         onDragEnd={handleDragEnd}
         collisionDetection={closestCorners}
       >
-        <h1 className="text-4xl font-bold mb-4 text-white text-center drop-shadow-md">
+        <h1 className="xs:text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold mb-4 text-white text-center drop-shadow-md">
           Taskify Dashboard
         </h1>
         <AddTask />
