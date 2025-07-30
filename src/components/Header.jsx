@@ -29,7 +29,7 @@ export default function Header() {
             className={({ isActive }) =>
               `${
                 isActive ? activeLinkStyle : normalLinkStyle
-              } px-3 py-2 rounded-md xs:text-xs sm:text-base md:text-lg lg:text-xl font-medium transition-colors`
+              } px-3 py-2 rounded-md xs:text-xs sm:text-base md:text-lg lg:text-xl 2xl:text-4xl font-medium transition-colors`
             }
           >
             Dashboard
