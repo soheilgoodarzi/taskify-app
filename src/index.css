@@ -1,10 +1,9 @@
 @import "tailwindcss";
 @theme {
   --color-pencil-tip-100: #31363f;
-  --color-pencil-tip-200: #222831;
-  --color-pencil-tip-300: #4e545c;
   --color-milky: #f9f8f0;
-
+  --breakpoint-xs: 320px;
+  --breakpoint-sm: 420px;
 }
 body {
   color: var(--color-milky);
