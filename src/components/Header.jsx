@@ -6,9 +6,9 @@ export default function Header() {
 
   return (
     <header>
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 flex justify-between items-center xs:h-12 md:h-16 2xl:h-32">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 flex justify-between items-center xs:h-12 md:h-16 2xl:h-18 3xl:h-32">
         <div className="flex-shrink-0">
-          <h1 className="xs:text-xl sm:text-2xl md:text-2xl lg:text-3xl 2xl:text-6xl font-bold text-white drop-shadow-md">
+          <h1 className="xs:text-xl sm:text-2xl md:text-2xl lg:text-3xl 2xl:text-4xl 3xl:text-6xl font-bold text-white drop-shadow-md">
             Taskify
           </h1>
         </div>
@@ -19,7 +19,7 @@ export default function Header() {
             className={({ isActive }) =>
               `${
                 isActive ? activeLinkStyle : normalLinkStyle
-              } px-3 py-2 rounded-md xs:text-xs sm:text-base md:text-lg lg:text-xl 2xl:text-4xl font-medium transition-colors`
+              } px-3 py-2 rounded-md xs:text-xs sm:text-base md:text-lg lg:text-lg 2xl:text-2xl 3xl:text-4xl font-medium transition-colors`
             }
           >
             Home
@@ -29,7 +29,7 @@ export default function Header() {
             className={({ isActive }) =>
               `${
                 isActive ? activeLinkStyle : normalLinkStyle
-              } px-3 py-2 rounded-md xs:text-xs sm:text-base md:text-lg lg:text-xl 2xl:text-4xl font-medium transition-colors`
+              } px-3 py-2 rounded-md xs:text-xs sm:text-base md:text-lg lg:text-lg 2xl:text-2xl 3xl:text-4xl font-medium transition-colors`
             }
           >
             Dashboard
