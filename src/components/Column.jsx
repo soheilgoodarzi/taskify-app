@@ -6,8 +6,8 @@ export default function Column({ id, title, tasks, className }) {
   const { setNodeRef } = useDroppable({ id })
 
   return (
-    <div ref={setNodeRef} className={`${className} p-6`}>
-      <div className="flex flex-row gap-2 mb-4 justify-center text-xl text-white">
+    <div ref={setNodeRef} className={`${className} p-4 md:p-6`}>
+      <div className="flex flex-row gap-2 mb-4 justify-center text-lg md:text-xl text-white">
         <h2 className="font-bold drop-shadow-md">{title}</h2>
         <span className="drop-shadow-md">({tasks.length})</span>
       </div>
